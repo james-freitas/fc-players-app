@@ -2,10 +2,9 @@ name: API Contract Tests
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-
   validate:
     name: Validate OpenAPI documentation
     runs-on: ubuntu-latest
@@ -16,8 +15,8 @@ jobs:
       # Run Spectral
       - uses: stoplightio/spectral-action@latest
         with:
-          file_glob: 'assets/api-docs/players-api.yaml'
-          spectral_ruleset: 'assets/rules/openapi3.spectral.yaml'
+          file_glob: "assets/api-docs/players-api.yaml"
+          spectral_ruleset: "assets/rules/openapi3.spectral.yaml"
 
   contract:
     name: Check API Contract
@@ -27,10 +26,10 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: "16"
 
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: cache-node-modules
         env:
           cache-name: cache-node-modules
@@ -47,5 +46,5 @@ jobs:
         run: npm -g install @stoplight/prism-cli newman
 
       - name: Run contract tests
-        run:  |
+        run: |
           prism mock assets/api-docs/players-api.yaml & sleep 2 && newman run assets/api-tests/players.postman.json
