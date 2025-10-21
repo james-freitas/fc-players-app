@@ -2,7 +2,10 @@
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: players:autoscaling/HorizontalPodAutoscaler:bets/players
   name: {{ include "players.fullname" . }}
+  namespace: bets
   labels:
     {{- include "players.labels" . | nindent 4 }}
 spec:
