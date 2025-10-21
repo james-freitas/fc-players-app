@@ -1,8 +1,14 @@
 {{- if .Values.kong.enabled -}}
 apiVersion: configuration.konghq.com/v1
 kind: KongIngress
+# metadata:
+#   name: players-do-not-preserve-host
 metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: >-
+      players:configuration.konghq.com/KongIngress:bets/players-do-not-preserve-host
   name: players-do-not-preserve-host
+  namespace: bets
 route:
   preserve_host: false
 upstream:
