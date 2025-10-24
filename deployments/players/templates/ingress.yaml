@@ -8,11 +8,12 @@ apiVersion: extensions/v1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: {{ .Release.Name }}
   labels:
     {{- include "players.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
+    konghq.com/preserve-host: "false"
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
